@@ -51,6 +51,7 @@ def call(body) {
   print "microserviceBuilderPipeline : config = ${config}"
 
   // User configurable options
+  def registry = (config.registry ?: env.REGISTRY).trim()
   def image = config.image
   def build = (config.build ?: env.BUILD ?: "true").toBoolean()
   def deploy = (config.deploy ?: env.DEPLOY ?: "true").toBoolean()
@@ -62,7 +63,7 @@ def call(body) {
   def libertyLicenseJarName = config.libertyLicenseJarName ?: (env.LIBERTY_LICENSE_JAR_NAME ?: "").trim()
 
   // Internal 
-  def registry = (env.REGISTRY ?: "").trim()
+  //def registry = (env.REGISTRY ?: "").trim()
   if (registry && !registry.endsWith('/')) registry = "${registry}/"
   def registrySecret = (env.REGISTRY_SECRET ?: "").trim()
   def serviceAccountName = (env.SERVICE_ACCOUNT_NAME ?: "default").trim()
