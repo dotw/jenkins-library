@@ -86,6 +86,8 @@ def call(body) {
   mcReleaseName=${mcReleaseName} namespace=${namespace} helmSecret=${helmSecret} libertyLicenseJarBaseUrl=${libertyLicenseJarBaseUrl} \
   mavenSettingsConfigMap=${mavenSettingsConfigMap} alwaysPullImage=${alwaysPullImage} helmTlsOptions=${helmTlsOptions} \
   maven=${maven} docker=${docker} kubectl=${kubectl} helm=${helm}" 
+  def registry = (config.registry ?: "mycluster.icp:8500/").trim()
+  registry = registry + namespace + "/"
   
   def jobName = (env.JOB_BASE_NAME)
   // E.g. JOB_NAME=default/myproject/master
@@ -240,6 +242,9 @@ def call(body) {
               if (registry) {
                 sh "docker tag ${image}:${imageTag} ${registry}${image}:${imageTag}"
                 sh "docker push ${registry}${image}:${imageTag}"
+		// push latest
+                sh "docker tag ${registry}${image}:${imageTag} ${registry}${image}:latest"
+                sh "docker push ${registry}${image}:latest"
               }
             }
           }
