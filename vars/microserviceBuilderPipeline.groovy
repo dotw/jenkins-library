@@ -86,7 +86,8 @@ def call(body) {
   mcReleaseName=${mcReleaseName} namespace=${namespace} helmSecret=${helmSecret} libertyLicenseJarBaseUrl=${libertyLicenseJarBaseUrl} \
   mavenSettingsConfigMap=${mavenSettingsConfigMap} alwaysPullImage=${alwaysPullImage} helmTlsOptions=${helmTlsOptions} \
   maven=${maven} docker=${docker} kubectl=${kubectl} helm=${helm}" 
-  def registry = (config.registry ?: "mycluster.icp:8500/").trim()
+  // overide registry
+  registry = (config.registry ?: "mycluster.icp:8500/").trim()
   registry = registry + namespace + "/"
   
   def jobName = (env.JOB_BASE_NAME)
