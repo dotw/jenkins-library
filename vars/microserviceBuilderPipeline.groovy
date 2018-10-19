@@ -164,7 +164,9 @@ def call(body) {
               def mvnCommand = "mvn -B"
               if (mavenSettingsConfigMap) {
                 mvnCommand += " --settings /msb_mvn_cfg/settings.xml"
-              }
+	      } else {
+	      	mvnCommand += " --settings /usr/shared/maven/ref/settings-docker.xml"
+	      }
               mvnCommand += " ${mvnCommands}"
               sh mvnCommand
             }
@@ -299,7 +301,9 @@ def call(body) {
               def mvnCommand = "mvn -B -Dnamespace.use.existing=${testNamespace} -Denv.init.enabled=false"
               if (mavenSettingsConfigMap) {
                 mvnCommand += " --settings /msb_mvn_cfg/settings.xml"
-              }
+              } else {
+	      	mvnCommand += " --settings /usr/shared/maven/ref/settings-docker.xml"
+	      }
               mvnCommand += " verify"
               sh mvnCommand
             } finally {
