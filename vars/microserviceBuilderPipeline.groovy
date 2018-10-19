@@ -165,7 +165,7 @@ def call(body) {
               if (mavenSettingsConfigMap) {
                 mvnCommand += " --settings /msb_mvn_cfg/settings.xml"
 	      } else {
-	      	mvnCommand += " --settings /usr/share/maven/ref/settings-docker.xml"
+	      	mvnCommand += " --settings /usr/share/maven/ref/settings.xml"
 	      }
               mvnCommand += " ${mvnCommands}"
               sh mvnCommand
@@ -302,7 +302,7 @@ def call(body) {
               if (mavenSettingsConfigMap) {
                 mvnCommand += " --settings /msb_mvn_cfg/settings.xml"
               } else {
-	      	mvnCommand += " --settings /usr/share/maven/ref/settings-docker.xml"
+	      	mvnCommand += " --settings /usr/share/maven/ref/settings.xml"
 	      }
               mvnCommand += " verify"
               sh mvnCommand
